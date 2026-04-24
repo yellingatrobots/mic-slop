@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" width="100" height="150">
+  <!-- Melting Condenser Mic Logo -->
+  <defs>
+    <style>
+      .mic { fill: #6b7280; }
+    </style>
+  </defs>
+  
+  <!-- Mic grille (top rounded part) -->
+  <path class="mic" d="
+    M30 15
+    Q30 5, 50 5
+    Q70 5, 70 15
+    L70 45
+    Q70 50, 65 50
+    L35 50
+    Q30 50, 30 45
+    Z
+  "/>
+  
+  <!-- Grille lines -->
+  <rect class="mic" x="32" y="12" width="36" height="3" rx="1" fill="#9ca3af"/>
+  <rect class="mic" x="32" y="20" width="36" height="3" rx="1" fill="#9ca3af"/>
+  <rect class="mic" x="32" y="28" width="36" height="3" rx="1" fill="#9ca3af"/>
+  <rect class="mic" x="32" y="36" width="36" height="3" rx="1" fill="#9ca3af"/>
+  
+  <!-- Mic body (middle section) -->
+  <rect class="mic" x="35" y="50" width="30" height="35" rx="2"/>
+  
+  <!-- Melting bottom section with drips -->
+  <path class="mic" d="
+    M35 85
+    L35 95
+    Q35 100, 32 105
+    Q28 115, 30 125
+    Q32 135, 28 145
+    Q27 150, 30 150
+    Q35 148, 38 140
+    Q40 130, 42 120
+    Q43 115, 45 110
+    L45 100
+    L50 100
+    L50 115
+    Q50 125, 52 135
+    Q54 145, 50 150
+    Q55 152, 58 145
+    Q60 135, 58 125
+    Q56 115, 55 105
+    L55 100
+    L60 100
+    Q62 108, 65 115
+    Q68 125, 66 130
+    Q65 135, 68 135
+    Q72 133, 70 125
+    Q68 115, 68 105
+    Q67 98, 65 92
+    L65 85
+    Z
+  "/>
+</svg>
