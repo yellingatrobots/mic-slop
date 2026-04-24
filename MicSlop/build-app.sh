@@ -16,5 +16,8 @@ cp .build/release/MicSlop "$APP_NAME/Contents/MacOS/"
 # Copy Info.plist
 cp Info.plist "$APP_NAME/Contents/"
 
+# Copy app icon
+cp AppIcon.icns "$APP_NAME/Contents/Resources/"
+
 echo "Built $APP_NAME"
 echo "Run with: open MicSlop.app"

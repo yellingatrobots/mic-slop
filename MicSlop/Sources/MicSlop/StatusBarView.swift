@@ -14,6 +14,8 @@ struct StatusBarView: View {
     }
 }
 
+// Preview only works in Xcode, not with SPM command-line builds
+#if DEBUG && canImport(PreviewsMacros)
 #Preview {
     VStack(spacing: 10) {
         StatusBarView(isOnAir: true)
@@ -21,3 +23,4 @@ struct StatusBarView: View {
     }
     .padding()
 }
+#endif
