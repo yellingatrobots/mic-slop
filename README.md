@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.svg" alt="Mic Slop logo" width="100" height="150">
+  <img src="./logo.svg" alt="Mic Slop logo">
 </p>
 
 # Mic Slop - mute your input volume with Cmd+L
