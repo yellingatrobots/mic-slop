@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Use Xcode toolchain (Command Line Tools has Swift 6 linker issues)
+export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+
 # Build release
 swift build -c release
 
