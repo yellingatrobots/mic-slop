@@ -44,18 +44,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func updateStatusItemView() {
         let isOnAir = audioController.volume > 0
-        let text = isOnAir ? "ON AIR" : "OFF AIR"
-        let backgroundColor = isOnAir 
-            ? NSColor(red: 1.0, green: 0.231, blue: 0.188, alpha: 1.0)
-            : NSColor(white: 0.557, alpha: 1.0)
+        let view = StatusBarView(isOnAir: isOnAir)
+        let hostingView = NSHostingView(rootView: view)
+        hostingView.setFrameSize(hostingView.fittingSize)
         
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: NSFont.systemFont(ofSize: 10, weight: .bold),
-            .foregroundColor: NSColor.white,
-            .backgroundColor: backgroundColor
-        ]
+        statusItem.button?.subviews.forEach { $0.removeFromSuperview() }
         
-        statusItem.button?.attributedTitle = NSAttributedString(string: " \(text) ", attributes: attributes)
+        // Use menu bar height for proper centering
+        let menuBarHeight = NSStatusBar.system.thickness
+        let viewSize = hostingView.fittingSize
+        let yOffset = (menuBarHeight - viewSize.height) / 2
+        
+        hostingView.frame = NSRect(
+            x: 0,
+            y: yOffset,
+            width: viewSize.width,
+            height: viewSize.height
+        )
+        
+        statusItem.button?.addSubview(hostingView)
+        statusItem.button?.frame.size.width = viewSize.width
     }
     
     private func setupHotKey() {
