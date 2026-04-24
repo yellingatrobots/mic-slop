@@ -33,6 +33,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem.autosaveName = "com.micslop.statusitem"
         
         updateStatusItemView()
         
@@ -43,11 +44,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func updateStatusItemView() {
         let isOnAir = audioController.volume > 0
-        let hostingView = NSHostingView(rootView: StatusBarView(isOnAir: isOnAir))
-        hostingView.frame = NSRect(x: 0, y: 0, width: 60, height: 22)
-        statusItem.button?.subviews.forEach { $0.removeFromSuperview() }
-        statusItem.button?.addSubview(hostingView)
-        statusItem.button?.frame = hostingView.frame
+        let text = isOnAir ? "ON AIR" : "OFF AIR"
+        let backgroundColor = isOnAir 
+            ? NSColor(red: 1.0, green: 0.231, blue: 0.188, alpha: 1.0)
+            : NSColor(white: 0.557, alpha: 1.0)
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: 10, weight: .bold),
+            .foregroundColor: NSColor.white,
+            .backgroundColor: backgroundColor
+        ]
+        
+        statusItem.button?.attributedTitle = NSAttributedString(string: " \(text) ", attributes: attributes)
     }
     
     private func setupHotKey() {
