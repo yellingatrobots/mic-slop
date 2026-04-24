@@ -1,9 +1,10 @@
 import AppKit
 import Combine
+import CoreAudio
 
 @MainActor
 final class AudioController: ObservableObject {
-    @Published private(set) var volume: Int = 0
+    @Published private(set) var isMuted: Bool = false
     
     nonisolated(unsafe) private var pollingTimer: Timer?
     
@@ -17,46 +18,89 @@ final class AudioController: ObservableObject {
     }
     
     func toggle() {
-        if volume > 0 {
-            setInputVolume(0)
-        } else {
-            setInputVolume(50)
-        }
+        setMuted(!isMuted)
         refresh()
     }
     
     func refresh() {
-        volume = getInputVolume()
+        isMuted = getInputMuted()
     }
     
     private func startPolling() {
-        pollingTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        pollingTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 self?.refresh()
             }
         }
     }
     
-    private func getInputVolume() -> Int {
-        let script = NSAppleScript(source: "input volume of (get volume settings)")
-        var error: NSDictionary?
-        let result = script?.executeAndReturnError(&error)
+    // MARK: - CoreAudio
+    
+    private func getDefaultInputDevice() -> AudioDeviceID? {
+        var deviceID = AudioDeviceID()
+        var size = UInt32(MemoryLayout<AudioDeviceID>.size)
         
-        if let error = error {
-            print("AppleScript error getting volume: \(error)")
-            return volume // Return last known state
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioHardwarePropertyDefaultInputDevice,
+            mScope: kAudioObjectPropertyScopeGlobal,
+            mElement: kAudioObjectPropertyElementMain
+        )
+        
+        let status = AudioObjectGetPropertyData(
+            AudioObjectID(kAudioObjectSystemObject),
+            &address,
+            0,
+            nil,
+            &size,
+            &deviceID
+        )
+        
+        guard status == noErr else {
+            print("Failed to get default input device: \(status)")
+            return nil
         }
         
-        return Int(result?.int32Value ?? 0)
+        return deviceID
     }
     
-    private func setInputVolume(_ newVolume: Int) {
-        let script = NSAppleScript(source: "set volume input volume \(newVolume)")
-        var error: NSDictionary?
-        script?.executeAndReturnError(&error)
+    private func getInputMuted() -> Bool {
+        guard let deviceID = getDefaultInputDevice() else { return false }
         
-        if let error = error {
-            print("AppleScript error setting volume: \(error)")
+        var muted: UInt32 = 0
+        var size = UInt32(MemoryLayout<UInt32>.size)
+        
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioDevicePropertyMute,
+            mScope: kAudioDevicePropertyScopeInput,
+            mElement: kAudioObjectPropertyElementMain
+        )
+        
+        let status = AudioObjectGetPropertyData(deviceID, &address, 0, nil, &size, &muted)
+        
+        if status != noErr {
+            print("Failed to get mute state: \(status)")
+            return false
+        }
+        
+        return muted != 0
+    }
+    
+    private func setMuted(_ mute: Bool) {
+        guard let deviceID = getDefaultInputDevice() else { return }
+        
+        var muted: UInt32 = mute ? 1 : 0
+        let size = UInt32(MemoryLayout<UInt32>.size)
+        
+        var address = AudioObjectPropertyAddress(
+            mSelector: kAudioDevicePropertyMute,
+            mScope: kAudioDevicePropertyScopeInput,
+            mElement: kAudioObjectPropertyElementMain
+        )
+        
+        let status = AudioObjectSetPropertyData(deviceID, &address, 0, nil, size, &muted)
+        
+        if status != noErr {
+            print("Failed to set mute state: \(status)")
         }
     }
 }

@@ -28,7 +28,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         setupHotKey()
         setupLaunchAtLogin()
         
-        observeVolumeChanges()
+        observeMuteChanges()
     }
     
     private func setupStatusItem() {
@@ -43,7 +43,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func updateStatusItemView() {
-        let isOnAir = audioController.volume > 0
+        let isOnAir = !audioController.isMuted
         let text = isOnAir ? "ON AIR" : "OFF AIR"
         let backgroundColor = isOnAir 
             ? NSColor(red: 1.0, green: 0.231, blue: 0.188, alpha: 1.0)
@@ -75,8 +75,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    private func observeVolumeChanges() {
-        audioController.$volume
+    private func observeMuteChanges() {
+        audioController.$isMuted
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.updateStatusItemView()
