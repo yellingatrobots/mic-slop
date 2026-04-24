@@ -1,5 +1,59 @@
 <p align="center">
-  <img src="./logo.svg" alt="Mic Slop logo">
+<svg width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+
+<style>
+  .slop-body { fill: #5a8a6e; }
+  .slop-dark { fill: #3d6b52; }
+  .slop-highlight { fill: #7db893; }
+  .slop-shadow { fill: #2e5040; }
+  .slop-grill { stroke: #2e5040; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .slop-drip { fill: #5a8a6e; }
+  .slop-drip-dark { fill: #3d6b52; }
+  .slop-text { font-family: system-ui, -apple-system, sans-serif; font-size: 42px; font-weight: 500; fill: #3d6b52; letter-spacing: 2px; }
+</style>
+
+<!-- Mic head -->
+<path class="slop-body" d="M280 200 C275 140, 310 95, 340 90 C370 82, 410 100, 415 130 C422 160, 418 200, 410 230 C405 255, 395 270, 380 280 C360 295, 310 298, 290 285 C270 265, 268 240, 280 200 Z"/>
+<path class="slop-highlight" d="M305 135 C310 110, 340 98, 358 96 C375 92, 395 108, 400 128 C405 148, 398 170, 390 185 C370 160, 340 140, 305 135 Z" opacity="0.5"/>
+
+<!-- Grill lines -->
+<path class="slop-grill" d="M298 160 Q340 152 395 162"/>
+<path class="slop-grill" d="M292 185 Q342 174 402 188"/>
+<path class="slop-grill" d="M290 210 Q338 198 405 214"/>
+<path class="slop-grill" d="M293 235 Q335 222 400 238"/>
+<path class="slop-grill" d="M300 258 Q340 248 390 260"/>
+
+<!-- Mic body -->
+<path class="slop-dark" d="M320 280 C315 290, 310 310, 312 340 C314 370, 318 400, 320 430 C322 460, 316 480, 330 500 C340 515, 345 510, 350 500 C358 480, 352 460, 354 430 C356 400, 360 370, 358 340 C356 310, 352 290, 348 280 Z"/>
+<path class="slop-highlight" d="M325 290 C322 310, 320 340, 322 370 C324 400, 326 430, 328 450 C330 440, 332 410, 332 380 C332 350, 330 320, 328 290 Z" opacity="0.35"/>
+
+<!-- Handle ring -->
+<path class="slop-shadow" d="M310 490 C308 495, 312 505, 320 508 C330 512, 345 512, 355 508 C362 504, 365 495, 362 490 L358 490 C356 496, 350 502, 340 504 C330 506, 320 504, 315 498 Z"/>
+
+<!-- Stand base puddle -->
+<path class="slop-body" d="M260 530 C250 528, 235 540, 240 555 C245 575, 280 590, 320 595 C360 600, 420 590, 435 570 C445 555, 430 535, 410 530 C395 525, 370 520, 340 518 C310 516, 280 520, 260 530 Z"/>
+<path class="slop-shadow" d="M270 545 C265 555, 285 575, 325 580 C365 585, 410 575, 420 560 C415 555, 395 545, 360 540 C325 535, 285 538, 270 545 Z" opacity="0.4"/>
+
+<!-- Drips from head -->
+<path class="slop-drip" d="M285 275 C282 290, 278 320, 275 345 C272 365, 268 380, 270 395 C273 405, 278 400, 278 390 C278 375, 280 340, 283 310 C286 295, 287 285, 285 275 Z"/>
+<path class="slop-drip" d="M395 268 C400 285, 408 310, 412 340 C416 370, 420 400, 418 430 C416 445, 424 455, 426 440 C430 415, 425 380, 420 345 C415 310, 405 280, 395 268 Z"/>
+<path class="slop-drip-dark" d="M270 395 C268 410, 265 430, 268 445 C272 455, 276 448, 274 435 C272 420, 273 405, 270 395 Z"/>
+
+<!-- Drip from body -->
+<path class="slop-drip" d="M330 505 C328 520, 325 540, 322 555 C320 565, 318 580, 322 575 C326 568, 328 555, 330 540 C332 525, 332 515, 330 505 Z"/>
+
+<!-- Drip blobs -->
+<ellipse class="slop-drip" cx="268" cy="458" rx="6" ry="8"/>
+<ellipse class="slop-drip-dark" cx="426" cy="468" rx="5" ry="7"/>
+<ellipse class="slop-drip" cx="320" cy="600" rx="4" ry="5"/>
+<ellipse class="slop-drip" cx="255" cy="490" rx="3" ry="4"/>
+<ellipse class="slop-drip-dark" cx="435" cy="500" rx="4" ry="5"/>
+
+<!-- Title -->
+
+<text class="slop-text" x="340" y="650" text-anchor="middle">MIC SLOP</text>
+
+</svg>
 </p>
 
 # Mic Slop - mute your input volume with Cmd+L
