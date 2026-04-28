@@ -8,3 +8,5 @@ I bought a new mic. And MicDrop doesn't work with it cause something something
 system drivers.
 
 So I vibe-coded this. :shrug:
+
+And it doesn't work, cause sound and drivers are hard. :laugh:
